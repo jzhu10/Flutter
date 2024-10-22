@@ -1,16 +1,38 @@
-# hw3
+# Overview
 
-A new Flutter project.
+A Book Club App implemented using Bloc.
 
-## Getting Started
+## Specific Feature
 
-This project is a starting point for a Flutter application.
+- Book images are generated with placehold.co. Different colors are defined to
+distinguish different books. Other than colors, the author and title info are
+shown on top of the image for easier identify the sorted result.
 
-A few resources to get you started if this is your first Flutter project:
+- A shimmer is designed according to the BookList layout to display a smooth
+transition.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Implementing Details
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+All book info(title, author, description and imageUrl) in this app are generated using Mock class(in service folder). 
+
+HomePage with bloc and views are in lib/pages/home.
+
+The content(view) of the HomePage is displayed according to the what current
+state is.
+- Loading state -> LoadingView
+- BookDetails state -> BookDetailsView
+- BookList state -> BookListView
+
+3 states are defined in HomeState. They are emitted according to event trigger.
+The trigger logic is in HomeBloc.
+- BookListEvent -> BookList state
+- SortByTitleEvent -> Loading state and BookList state
+- SortByAuthorEvent -> Loading state and BookList state
+- BookDetailsEvent -> BookDetails state
+
+4 events are defined in HomeEvent. They are triggered by the elements of UI.
+- Back leading button in BookDetailsView -> BookListEvent
+- Sort by title button in BookListView -> SortByTitleEvent.
+- Sort by author button in BookListView -> SortByAuthorEvent.
+- Book images in BookListView -> BookDetailsEvent.
+
